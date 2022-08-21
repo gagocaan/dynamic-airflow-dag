@@ -6,4 +6,4 @@ default_args:
 schedule_interval: "0 0 * * *"
 catchup: true
 description: "Test DAG"
-tags: ["version:0.1.0"]
+tags: ["version:0.1.1"]

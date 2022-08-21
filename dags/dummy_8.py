@@ -5,8 +5,9 @@ from airflow import DAG
 from airflow.decorators import task
 from airflow.models.param import Param
 
+
 with DAG(
-    "dummy_1",
+    f"dummy_8",
     start_date=pendulum.datetime(2022, 8, 21, tz="UTC"),
     schedule_interval=None,
     default_args={"depends_on_past": False, "owner": "Carlos Garzon", "retries": 0},
