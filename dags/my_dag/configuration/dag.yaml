@@ -1,0 +1,9 @@
+dag_id: "my_dag"
+default_args:
+  depends_on_past: false
+  owner: "Carlos Garzon"
+  retries: 0
+schedule_interval: "0 0 * * *"
+catchup: true
+description: "Test DAG"
+tags: ["version:0.1.0"]
