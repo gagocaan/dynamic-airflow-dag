@@ -3,6 +3,8 @@ default_args:
   depends_on_past: false
   owner: "Carlos Garzon"
   retries: 0
+  gcp_conn_id: metrics-streams-dev-conn
+  google_cloud_storage_conn_id: metrics-streams-dev-conn
 schedule_interval: "0 0 * * *"
 catchup: true
 description: "Test DAG"

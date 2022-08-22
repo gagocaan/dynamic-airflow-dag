@@ -1,7 +1,7 @@
 import pendulum
 from airflow import DAG
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
-from airflow.operators.empty import EmptyOperator
+from airflow.operators.dummy import DummyOperator
 from hydra import compose, initialize
 from omegaconf import OmegaConf
 
@@ -10,7 +10,7 @@ dags_cfg = OmegaConf.to_object(compose(config_name="dag"))
 
 with DAG(start_date=pendulum.datetime(2022, 8, 21, tz="UTC"), **dags_cfg) as dag:
 
-    empty_1 = EmptyOperator(task_id="empty_1")
+    empty_1 = DummyOperator(task_id="empty_1")
 
     triggers = [
         TriggerDagRunOperator(
@@ -33,9 +33,11 @@ with DAG(start_date=pendulum.datetime(2022, 8, 21, tz="UTC"), **dags_cfg) as dag
             ("8", 8),
             ("9", 9),
             ("10", -1),
+            ("11",11),
+            ("12",12)
         ]
     ]
 
-    empty_2 = EmptyOperator(task_id="empty_2", trigger_rule="all_done")
+    empty_2 = DummyOperator(task_id="empty_2", trigger_rule="all_done")
 
     empty_1 >> triggers >> empty_2
