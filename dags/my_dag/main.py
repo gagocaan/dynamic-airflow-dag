@@ -14,17 +14,28 @@ with DAG(start_date=pendulum.datetime(2022, 8, 21, tz="UTC"), **dags_cfg) as dag
 
     triggers = [
         TriggerDagRunOperator(
-            task_id=f"trigger_{_}",
-            trigger_dag_id=f"dummy_{_}",
+            task_id=f"trigger_{_[0]}",
+            trigger_dag_id=f"dummy_{_[0]}",
             wait_for_completion=True,
             execution_date="{{ds}}",
             reset_dag_run=True,
             poke_interval=10,
-            conf={"delay": 10},
+            conf={"delay": _[1]},
         )
-        for _ in range(1, 11)
+        for _ in [
+            ("1", 1),
+            ("2", 2),
+            ("3", 3),
+            ("4", 4),
+            ("5", 5),
+            ("6", 6),
+            ("7", 7),
+            ("8", 8),
+            ("9", 9),
+            ("10", -1),
+        ]
     ]
 
-    empty_2 = EmptyOperator(task_id="empty_2")
+    empty_2 = EmptyOperator(task_id="empty_2", trigger_rule="all_done")
 
     empty_1 >> triggers >> empty_2
