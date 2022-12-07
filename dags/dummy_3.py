@@ -13,10 +13,10 @@ with DAG(
     catchup=False,
     description="Dummy DAG",
     tags=["version:0.1.1"],
-    params={"delay": Param(None, type=["null", "integer"])},
+    params={"delay": Param("1", type=["string"])},
 ) as dag:
 
-    @task(task_id="sleep")
+    @task(task_id="sleep", trigger_rule="all_done")
     def my_sleeping_function(delay: str) -> None:
         time.sleep(int(delay))
 

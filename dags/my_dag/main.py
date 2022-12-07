@@ -4,6 +4,7 @@ from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from airflow.operators.dummy import DummyOperator
 from hydra import compose, initialize
 from omegaconf import OmegaConf
+from airflow.utils.helpers import chain
 
 initialize(config_path="configuration")
 dags_cfg = OmegaConf.to_object(compose(config_name="dag"))
@@ -23,21 +24,44 @@ with DAG(start_date=pendulum.datetime(2022, 8, 21, tz="UTC"), **dags_cfg) as dag
             conf={"delay": _[1]},
         )
         for _ in [
-            ("1", 1),
-            ("2", 2),
-            ("3", 3),
-            ("4", 4),
-            ("5", 5),
-            ("6", 6),
-            ("7", 7),
-            ("8", 8),
-            ("9", 9),
-            ("10", -1),
-            ("11",11),
-            ("12",12)
+            ("1", "1"),
+            ("2", "1"),
+            ("3", "1"),
+            ("4", "1"),
+            ("5", "1"),
+            ("6", "-1"),
+            ("7", "1"),
+            ("8", "1"),
+            ("9", "-1"),
+            ("10", "1"),
+            ("11", "1"),
+            ("12", "1"),
         ]
     ]
 
-    empty_2 = DummyOperator(task_id="empty_2", trigger_rule="all_done")
+    empty_2 = DummyOperator(
+        task_id="empty_2", trigger_rule="none_failed_min_one_success"
+    )
 
-    empty_1 >> triggers >> empty_2
+    chain(
+        [triggers[0], triggers[1]],
+        empty_1,
+        [
+            triggers[2],
+            triggers[3],
+        ],
+        [
+            triggers[4],
+            triggers[5],
+        ],
+        [
+            triggers[6],
+            triggers[7],
+        ],
+        [
+            triggers[8],
+            triggers[9],
+        ],
+        empty_2,
+        [triggers[10], triggers[11]],
+    )
