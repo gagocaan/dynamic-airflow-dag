@@ -18,4 +18,5 @@ docker-compose up
 
 ## UI
 
-Open the interface of Airflow on [http://localhost:8080/](http://localhost:8080/), user de username and password `airflow`.
+Open the interface of Airflow on [http://localhost:8080/](http://localhost:8080/)
+use __username__ and __password__ `airflow`.
