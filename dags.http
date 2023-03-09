@@ -1,2 +1,14 @@
 GET http://localhost:8080/api/v1/dags
 Authorization: Basic airflow:airflow
+
+###
+GET http://localhost:8080/api/v1/connections
+Authorization: Basic airflow:airflow
+
+###
+GET http://localhost:8080/api/v1/importErrors
+Authorization: Basic airflow:airflow
+
+###
+GET http://localhost:8080/api/v1/permissions
+Authorization: Basic airflow:airflow

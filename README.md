@@ -15,3 +15,7 @@ docker-compose up
 ```bash
 ./colima.sh
 ```
+
+## UI
+
+Open the interface of Airflow on [http://localhost:8080/](http://localhost:8080/), user de username and password `airflow`.

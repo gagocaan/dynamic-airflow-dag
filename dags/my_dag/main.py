@@ -9,8 +9,7 @@ from airflow.utils.helpers import chain
 initialize(config_path="configuration")
 dags_cfg = OmegaConf.to_object(compose(config_name="dag"))
 
-with DAG(start_date=pendulum.datetime(2022, 8, 21, tz="UTC"), **dags_cfg) as dag:
-
+with DAG(start_date=pendulum.datetime(2023, 1, 1, tz="UTC"), **dags_cfg) as dag:
     empty_1 = DummyOperator(task_id="empty_1")
 
     triggers = [
@@ -39,9 +38,7 @@ with DAG(start_date=pendulum.datetime(2022, 8, 21, tz="UTC"), **dags_cfg) as dag
         ]
     ]
 
-    empty_2 = DummyOperator(
-        task_id="empty_2", trigger_rule="none_failed_min_one_success"
-    )
+    empty_2 = DummyOperator(task_id="empty_2", trigger_rule="none_failed_min_one_success")
 
     chain(
         [triggers[0], triggers[1]],

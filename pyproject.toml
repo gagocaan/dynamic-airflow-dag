@@ -6,8 +6,9 @@ authors = ["gagocaan <gagocaan@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-apache-airflow = "2.2.3"
+apache-airflow = "2.3.4"
 hydra-core = "^1.2.0"
+loguru = "^0.6.0"
 
 [tool.poetry.dev-dependencies]
 

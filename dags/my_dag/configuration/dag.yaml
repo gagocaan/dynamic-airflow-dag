@@ -1,7 +1,7 @@
 dag_id: "my_dag"
 default_args:
   depends_on_past: false
-  owner: "Carlos Garzon"
+  owner: "The Owner"
   retries: 0
   gcp_conn_id: metrics-streams-dev-conn
   google_cloud_storage_conn_id: metrics-streams-dev-conn
