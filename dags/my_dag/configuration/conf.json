@@ -1,38 +1,42 @@
 {
-    "dummy_1": {
-        "delay": 1
+    "dummy_group_1": {
+        "dummy_1": {
+            "delay": 1
+        },
+        "dummy_2": {
+            "delay": 1
+        },
+        "dummy_3": {
+            "delay": 1
+        },
+        "dummy_4": {
+            "delay": 1
+        }
     },
-    "dummy_2": {
-        "delay": 1
-    },
-    "dummy_3": {
-        "delay": 1
-    },
-    "dummy_4": {
-        "delay": 1
-    },
-    "dummy_5": {
-        "delay": 1
-    },
-    "dummy_6": {
-        "delay": 1
-    },
-    "dummy_7": {
-        "delay": 1
-    },
-    "dummy_8": {
-        "delay": 1
-    },
-    "dummy_9": {
-        "delay": 1
-    },
-    "dummy_10": {
-        "delay": 1
-    },
-    "dummy_11": {
-        "delay": 1
-    },
-    "dummy_12": {
-        "delay": 1
+    "dummy_group_2": {
+        "dummy_5": {
+            "delay": 1
+        },
+        "dummy_6": {
+            "delay": 1
+        },
+        "dummy_7": {
+            "delay": 1
+        },
+        "dummy_8": {
+            "delay": 1
+        },
+        "dummy_9": {
+            "delay": 1
+        },
+        "dummy_10": {
+            "delay": 1
+        },
+        "dummy_11": {
+            "delay": 1
+        },
+        "dummy_12": {
+            "delay": 1
+        }
     }
 }

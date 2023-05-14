@@ -8,5 +8,4 @@ colima start \
     --mount $(PWD)/logs:w \
     --mount $(PWD)/plugins:w
 
-docker-compose up airflow-init
 docker-compose up

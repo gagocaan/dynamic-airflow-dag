@@ -1,0 +1,14 @@
+{
+    "Main.Fury": {
+        "group_id": "Fury",
+        "parent": "Main"
+    },
+    "Main.OutFury": {
+        "group_id": "OutFury",
+        "parent": "Main"
+    },
+    "Main.Final": {
+        "group_id": "Final",
+        "parent": "Main"
+    }
+}
