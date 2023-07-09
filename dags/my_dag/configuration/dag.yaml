@@ -5,7 +5,7 @@ default_args:
   retries: 0
   gcp_conn_id: metrics-streams-dev-conn
   google_cloud_storage_conn_id: metrics-streams-dev-conn
-schedule_interval: "0 0 * * *"
+schedule: "0 0 * * *"
 catchup: false
 description: "Test DAG"
 tags: ["version:0.3.0", "Master"]

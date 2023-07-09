@@ -1,4 +1,5 @@
 {
+    "skip_tasks": [],
     "general_parameters": {
         "delay": null,
         "startDate": null,
@@ -14,7 +15,8 @@
                 "message": "Test string"
             },
             "kwargs": {
-                "pool_slots": 127,
+                "trigger_rule": "one_success",
+                "pool_slots": 120,
                 "pool": "default_pool"
             }
         },
@@ -27,6 +29,7 @@
                 "message": "test string"
             },
             "kwargs": {
+                "trigger_rule": "one_success",
                 "pool_slots": 2
             }
         },
@@ -43,7 +46,9 @@
                 "startDate": "2023-01-01",
                 "message": "test string"
             },
-            "kwargs": {}
+            "kwargs": {
+                "trigger_rule": "one_success"
+            }
         },
         "dummy_4": {
             "group_id": "Group_3",
@@ -59,7 +64,9 @@
                 "startDate": "2023-01-01",
                 "message": "test string"
             },
-            "kwargs": {}
+            "kwargs": {
+                "trigger_rule": "one_success"
+            }
         },
         "dummy_5": {
             "group_id": "Group_2",
@@ -70,11 +77,13 @@
                 ]
             },
             "params": {
-                "delay": 1,
+                "delay": -1,
                 "startDate": "2023-01-01",
                 "message": "test string"
             },
-            "kwargs": {}
+            "kwargs": {
+                "trigger_rule": "one_success"
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ from airflow.models.param import Param
 with DAG(
     "dummy_3",
     start_date=pendulum.datetime(2023, 1, 1, tz="UTC"),
-    schedule_interval=None,
+    schedule=None,
     default_args={"depends_on_past": False, "owner": "The User", "retries": 0},
     catchup=False,
     description="Dummy DAG",

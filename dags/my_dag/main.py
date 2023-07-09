@@ -5,12 +5,13 @@ import pathlib
 
 import pendulum
 from airflow import DAG
+from airflow.exceptions import AirflowSkipException
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from airflow.utils.task_group import TaskGroup
 from hydra import compose, initialize
 from omegaconf import OmegaConf
 
-initialize(config_path="configuration")
+initialize(config_path="configuration", version_base=None)
 dags_cfg = OmegaConf.to_object(compose(config_name="dag"))
 
 with open(
@@ -19,6 +20,15 @@ with open(
     encoding="utf-8",
 ) as config_file:
     config: dict = json.loads(config_file.read())
+
+
+def skip_if_specified(context):
+    task_id = context["task"].task_id
+    conf = context["dag_run"].conf or {}
+    skip_tasks = conf.get("skip_tasks", [])
+    if task_id in skip_tasks:
+        raise AirflowSkipException()
+
 
 with DAG(
     start_date=pendulum.datetime(2023, 1, 1, tz="UTC"),
@@ -37,10 +47,11 @@ with DAG(
             dag=dag,
             trigger_dag_id=key,
             wait_for_completion=True,
-            execution_date="{{ execution_date }}",
+            execution_date="{{ logical_date }}",
             reset_dag_run=True,
             poke_interval=10,
             conf=f"{{{{ params.general_parameters if params.general_parameters.delay else params.flow.{key}.params }}}}",
+            pre_execute=skip_if_specified,
             **values["kwargs"],
         )
         for key, values in config["flow"].items()
