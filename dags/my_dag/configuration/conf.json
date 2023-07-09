@@ -1,42 +1,80 @@
 {
-    "dummy_group_1": {
+    "general_parameters": {
+        "delay": null,
+        "startDate": null,
+        "message": null
+    },
+    "flow": {
         "dummy_1": {
-            "delay": 1
+            "group_id": "Group_1",
+            "parents": {},
+            "params": {
+                "delay": 1,
+                "startDate": "2023-01-01",
+                "message": "Test string"
+            },
+            "kwargs": {
+                "pool_slots": 127,
+                "pool": "default_pool"
+            }
         },
         "dummy_2": {
-            "delay": 1
+            "group_id": "Group_2",
+            "parents": {},
+            "params": {
+                "delay": 1,
+                "startDate": "2023-01-01",
+                "message": "test string"
+            },
+            "kwargs": {
+                "pool_slots": 2
+            }
         },
         "dummy_3": {
-            "delay": 1
+            "group_id": "Group_2",
+            "parents": {
+                "type": "task",
+                "ids": [
+                    "dummy_2"
+                ]
+            },
+            "params": {
+                "delay": 1,
+                "startDate": "2023-01-01",
+                "message": "test string"
+            },
+            "kwargs": {}
         },
         "dummy_4": {
-            "delay": 1
-        }
-    },
-    "dummy_group_2": {
+            "group_id": "Group_3",
+            "parents": {
+                "type": "group",
+                "ids": [
+                    "Group_2",
+                    "Group_1"
+                ]
+            },
+            "params": {
+                "delay": 1,
+                "startDate": "2023-01-01",
+                "message": "test string"
+            },
+            "kwargs": {}
+        },
         "dummy_5": {
-            "delay": 1
-        },
-        "dummy_6": {
-            "delay": 1
-        },
-        "dummy_7": {
-            "delay": 1
-        },
-        "dummy_8": {
-            "delay": 1
-        },
-        "dummy_9": {
-            "delay": 1
-        },
-        "dummy_10": {
-            "delay": 1
-        },
-        "dummy_11": {
-            "delay": 1
-        },
-        "dummy_12": {
-            "delay": 1
+            "group_id": "Group_2",
+            "parents": {
+                "type": "task",
+                "ids": [
+                    "dummy_2"
+                ]
+            },
+            "params": {
+                "delay": 1,
+                "startDate": "2023-01-01",
+                "message": "test string"
+            },
+            "kwargs": {}
         }
     }
 }
