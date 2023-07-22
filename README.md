@@ -2,7 +2,7 @@
 
 ![Static Badge](https://img.shields.io/badge/apache-airflow?style=flat-square&logo=apache-airflow&label=Airflow)
 
-Enviroment for local test porposes
+Environment for testing and development purposes.
 
 ## Run
 
