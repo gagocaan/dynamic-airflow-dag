@@ -1,5 +1,10 @@
 {
-    "skip_tasks": [],
+    "skip_tasks": [
+        ""
+    ],
+    "only_execute_tasks": [
+        ""
+    ],
     "general_parameters": {
         "delay": null,
         "startDate": null,
