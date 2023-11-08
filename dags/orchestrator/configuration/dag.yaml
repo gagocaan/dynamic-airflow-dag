@@ -1,4 +1,4 @@
-dag_id: "my_dag"
+dag_id: "orchestrator"
 default_args:
   depends_on_past: false
   owner: "The Owner"
@@ -8,4 +8,4 @@ default_args:
 schedule: "0 0 * * *"
 catchup: false
 description: "Test DAG"
-tags: ["version:0.3.0", "Master"]
+tags: ["version:0.3.1", "Master"]
