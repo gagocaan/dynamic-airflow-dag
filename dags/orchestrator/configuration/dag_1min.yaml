@@ -1,11 +1,11 @@
-dag_id: "orchestrator"
+dag_id: "orchestrator_1min"
 default_args:
   depends_on_past: false
   owner: "The Owner"
   retries: 0
   gcp_conn_id: metrics-streams-dev-conn
   google_cloud_storage_conn_id: metrics-streams-dev-conn
-schedule: "0 0 * * *"
+schedule: "* * * * *"
 catchup: false
 description: "Test DAG"
-tags: ["version:0.3.1", "Master"]
+tags: ["version:0.3.4", "Master"]

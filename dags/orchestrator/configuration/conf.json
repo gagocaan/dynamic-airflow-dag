@@ -1,6 +1,6 @@
 {
     "skip_tasks": [
-        ""
+        "Group_1.trigger_dummy_1"
     ],
     "only_execute_tasks": [
         ""
@@ -12,6 +12,7 @@
     },
     "flow": {
         "dummy_1": {
+            "enabled": true,
             "group_id": "Group_1",
             "parents": {},
             "params": {
@@ -26,6 +27,7 @@
             }
         },
         "dummy_2": {
+            "enabled": true,
             "group_id": "Group_2",
             "parents": {},
             "params": {
@@ -39,6 +41,7 @@
             }
         },
         "dummy_3": {
+            "enabled": true,
             "group_id": "Group_2",
             "parents": {
                 "type": "task",
@@ -56,6 +59,7 @@
             }
         },
         "dummy_4": {
+            "enabled": true,
             "group_id": "Group_3",
             "parents": {
                 "type": "group",
@@ -74,6 +78,7 @@
             }
         },
         "dummy_5": {
+            "enabled": true,
             "group_id": "Group_2",
             "parents": {
                 "type": "task",

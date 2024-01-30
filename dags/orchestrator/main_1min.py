@@ -48,12 +48,14 @@ import pendulum
 from airflow import DAG
 from airflow.exceptions import AirflowSkipException, AirflowConfigException
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
+from airflow.operators.python import PythonOperator
 from airflow.utils.task_group import TaskGroup
 from hydra import compose, initialize
 from omegaconf import OmegaConf
+from loguru import logger
 
 initialize(config_path="configuration", version_base=None)
-dags_cfg = OmegaConf.to_object(compose(config_name="dag"))
+dags_cfg = OmegaConf.to_object(compose(config_name="dag_1min"))
 
 with open(
     os.path.join(pathlib.Path(__file__).parent.resolve(), "configuration", "conf.json"),
@@ -76,8 +78,13 @@ def skip_if_specified(context):
     """
     task_id = context["task"].task_id
     conf = context["dag_run"].conf or {}
+
     skip_tasks = conf.get("skip_tasks", [])
+    logger.info(f"{skip_tasks=}")
+
     only_execute_tasks = conf.get("only_execute_tasks", [])
+    logger.info(f"{only_execute_tasks=}")
+
     if skip_tasks and only_execute_tasks:
         raise AirflowConfigException(
             "`skip_tasks` and `only_execute_tasks` are mutually exclusive, you can only define one."
@@ -89,7 +96,7 @@ def skip_if_specified(context):
 
 
 with DAG(
-    start_date=pendulum.datetime(2023, 1, 1, tz="UTC"),
+    start_date=pendulum.datetime(2024, 1, 1, tz="UTC"),
     params=config,
     render_template_as_native_obj=True,
     doc_md=__doc__,
@@ -99,20 +106,29 @@ with DAG(
     group_list = list({values["group_id"] for _, values in config["flow"].items()})
     groups = {group: TaskGroup(group_id=group, dag=dag) for group in group_list}
 
+    def skip_task():
+        raise AirflowSkipException()
+
     tasks = {
         key: TriggerDagRunOperator(
             task_id=f"trigger_{key}",
             task_group=groups[values["group_id"]],
             dag=dag,
             trigger_dag_id=key,
-            trigger_run_id="from_orchestrator__{{ logical_date }}",
+            trigger_run_id="from_orchestrator__{{ ts }}",
             wait_for_completion=True,
-            execution_date="{{ logical_date }}",
+            execution_date="{{ ts }}",
             reset_dag_run=True,
             poke_interval=10,
             conf=f"{{{{ params.general_parameters if params.general_parameters.delay else params.flow.{key}.params }}}}",
             pre_execute=skip_if_specified,
             **values["kwargs"],
+        )
+        if values["enabled"]
+        else PythonOperator(
+            task_id=f"trigger_{key}",
+            python_callable=skip_task,
+            dag=dag,
         )
         for key, values in config["flow"].items()
     }
