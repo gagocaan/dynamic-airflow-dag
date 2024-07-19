@@ -12,9 +12,9 @@ BOLD=$(tput bold)
 NC=$(tput sgr0)
 
 start_airflow() {
-    mkdir -p ./config
-    mkdir -p ./logs
-    mkdir -p ./plugins
+    mkdir -p ./dags ./logs ./plugins ./config
+    echo -e "AIRFLOW_UID=$(id -u)" >.env
+    echo -e "AIRFLOW_GID=$(id -g)" >>.env
     docker-compose up -d
 
     echo -e "${GREEN_COLOR}${BOLD}Airflow is running on http://localhost:8080/${NC}\n"
