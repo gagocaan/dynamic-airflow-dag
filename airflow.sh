@@ -13,27 +13,33 @@ NC=$(tput sgr0)
 
 start_airflow() {
     mkdir -p ./dags ./logs ./plugins ./config
+    dot_clean . >/dev/null
     echo -e "AIRFLOW_UID=$(id -u)" >.env
     echo -e "AIRFLOW_GID=$(id -g)" >>.env
-    docker-compose up -d
+    docker-compose up -d --build
+    echo -e "\n${YELLOW_COLOR}${BOLD}Airflow will take a moment to start, please wait a moment...${NC}\n"
+    while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:8080)" != "302" ]]; do
+        sleep 5
+        printf '.'
+    done
 
-    echo -e "${GREEN_COLOR}${BOLD}Airflow is running on http://localhost:8080/${NC}\n"
+    echo -e "\n${GREEN_COLOR}${BOLD}Airflow is running on http://localhost:8080/${NC}"
 }
 
 restart_airflow() {
     docker-compose down
     docker-compose up -d
 
-    echo -e "${GREEN_COLOR}${BOLD}Restart Done!, Airflow is running on http://localhost:8080/${NC}\n"
+    echo -e "\n${GREEN_COLOR}${BOLD}Restart Done!, Airflow is running on http://localhost:8080/${NC}"
 }
 
 delete_airflow() {
-    docker-compose down --volumes --rmi local
+    docker compose down --volumes --rmi all
     rm -rf ./config
     rm -rf ./logs
     rm -rf ./plugins
 
-    echo -e "${YELLOW_COLOR}${BOLD}Your workspace is clean 🙀${NC}\n"
+    echo -e "\n${YELLOW_COLOR}${BOLD}Your workspace is clean 🙀${NC}"
 }
 
 main() {

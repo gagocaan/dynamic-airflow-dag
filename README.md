@@ -12,14 +12,6 @@ Environment for testing and development purposes.
 docker-compose up
 ```
 
-### With Colima
-
-```bash
-./colima.sh
-```
-
-> It is highly recommended to use the script
-
 ## UI
 
 Open the interface of Airflow on [http://localhost:8080/](http://localhost:8080/)
